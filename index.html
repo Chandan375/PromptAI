@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Gallery - AI Prompt Collection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8b5cf6',
+                        'primary-dark': '#7c3aed',
+                        'primary-light': '#a78bfa'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .copy-success {
+            animation: fadeInOut 2s ease-in-out;
+        }
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+        .category-pill {
+            transition: all 0.3s ease;
+        }
+        .category-pill:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-palette text-primary text-2xl mr-3"></i>
+                        <h1 class="text-xl font-bold text-gray-900">Prompt Gallery</h1>
+                    </div>
+                </div>
+                
+                <!-- Search Bar -->
+                <div class="flex-1 max-w-lg mx-8">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                        <input type="text" 
+                               id="searchInput"
+                               placeholder="Search prompts..." 
+                               class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-primary focus:border-primary">
+                    </div>
+                </div>
+                
+                <!-- Favorites Toggle -->
+                <div class="flex items-center">
+                    <button id="favoritesToggle" 
+                            class="text-gray-500 hover:text-primary transition-colors duration-200 flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-100">
+                        <i class="fas fa-heart"></i>
+                        <span class="hidden sm:block">Favorites</span>
+                        <span id="favoritesCount" class="bg-primary text-white text-xs rounded-full px-2 py-1 hidden">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Categories -->
+    <nav class="bg-white border-b border-gray-200 py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap justify-center gap-3">
+                <button class="category-btn category-pill px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-primary text-white" 
+                        data-category="all">
+                    All Prompts
+                </button>
+                <button class="category-btn category-pill px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-gray-100 text-gray-700 hover:bg-primary hover:text-white" 
+                        data-category="men">
+                    Men
+                </button>
+                <button class="category-btn category-pill px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-gray-100 text-gray-700 hover:bg-primary hover:text-white" 
+                        data-category="women">
+                    Women
+                </button>
+                <button class="category-btn category-pill px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-gray-100 text-gray-700 hover:bg-primary hover:text-white" 
+                        data-category="couple">
+                    Couple
+                </button>
+                <button class="category-btn category-pill px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-gray-100 text-gray-700 hover:bg-primary hover:text-white" 
+                        data-category="kids">
+                    Kids
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Stats Section -->
+        <div class="text-center mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">Discover Amazing AI Prompts</h2>
+            <p class="text-gray-600">Curated collection of creative prompts for your AI projects</p>
+            <div class="mt-4 flex justify-center space-x-8">
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-primary" id="totalPrompts">0</div>
+                    <div class="text-sm text-gray-500">Total Prompts</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-primary" id="activeCategory">All</div>
+                    <div class="text-sm text-gray-500">Category</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ads/Integration Block -->
+        <div class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 rounded-xl p-6 mb-8 text-white text-center">
+            <div class="flex items-center justify-center space-x-4">
+                <i class="fas fa-star text-2xl"></i>
+                <div>
+                    <h3 class="text-lg font-semibold">Join Our AI Community</h3>
+                    <p class="text-sm opacity-90">Get exclusive prompts and AI tips delivered weekly</p>
+                </div>
+                <button class="bg-white text-purple-600 px-4 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors">
+                    Join Now
+                </button>
+            </div>
+        </div>
+
+        <!-- Prompts Grid -->
+        <div id="promptsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Prompt cards will be dynamically inserted here -->
+        </div>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="text-center py-12 hidden">
+            <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            <p class="mt-4 text-gray-600">Loading prompts...</p>
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="text-center py-12 hidden">
+            <i class="fas fa-search text-6xl text-gray-300 mb-4"></i>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">No prompts found</h3>
+            <p class="text-gray-600">Try adjusting your search or category filter.</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center">
+                <p class="text-gray-600">Made with ❤️ using AI</p>
+                <p class="text-sm text-gray-500 mt-2">© 2024 Prompt Gallery. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Copy Success Toast -->
+    <div id="copyToast" class="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg hidden copy-success">
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-check"></i>
+            <span>Copied to clipboard!</span>
+        </div>
+    </div>
+
+    <script src="js/prompts-data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
