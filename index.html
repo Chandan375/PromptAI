@@ -318,8 +318,8 @@
     <script src="js/main.js"></script>
 
 
+
 <script>
-  // Open Modal with given ad link
   function openModalWithLink(link) {
     document.getElementById('modalIframe').src = link;
     document.getElementById('myModal').style.display = 'block';
@@ -330,7 +330,6 @@
     document.getElementById('myModal').style.display = 'none';
   }
 
-  // ✅ Your 10 ad URLs (already include ?key=)
   var adLinks = [
     'https://www.revenuecpmgate.com/y91c3i4s4?key=8ff4686043b75d2cb3f351535201cecc',
     'https://www.revenuecpmgate.com/ufw6ve5hc?key=beec71876202d3e7c76188877bd8d697',
@@ -344,8 +343,6 @@
     'https://www.revenuecpmgate.com/dpyk9ees1?key=99f85906cc6ef409cc917831e2b283b2'
   ];
 
-  // ✅ Show ads one by one
-  // Start after 5 seconds, each ad visible for 15 seconds
   var startDelay = 5000;   // first ad after 5 seconds
   var showDuration = 15000; // 15 seconds each
 
@@ -357,7 +354,6 @@
   });
 </script>
 
-<!-- ✅ Modal HTML -->
 <div class="modal" id="myModal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9999;">
   <div class="modal-content" style="position: relative; background: #fff; margin: 5% auto; padding: 10px; border-radius: 12px; width: 80%; max-width: 700px; box-shadow: 0 0 20px rgba(0,0,0,0.3);">
     <span onclick="closeModal()" style="cursor: pointer; float: right; font-size: 20px; font-weight: bold;">×</span>
