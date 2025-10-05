@@ -316,5 +316,55 @@
 
     <script src="js/prompts-data.js"></script>
     <script src="js/main.js"></script>
+
+
+<script>
+  // Open Modal with given ad link
+  function openModalWithLink(link) {
+    document.getElementById('modalIframe').src = link;
+    document.getElementById('myModal').style.display = 'block';
+  }
+
+  // Close Modal
+  function closeModal() {
+    document.getElementById('myModal').style.display = 'none';
+  }
+
+  // ✅ Your 10 ad URLs (already include ?key=)
+  var adLinks = [
+    'https://www.revenuecpmgate.com/y91c3i4s4?key=8ff4686043b75d2cb3f351535201cecc',
+    'https://www.revenuecpmgate.com/ufw6ve5hc?key=beec71876202d3e7c76188877bd8d697',
+    'https://www.revenuecpmgate.com/whp0g0pz?key=ab6b18767fdd5d05884a9b51d663461a',
+    'https://www.revenuecpmgate.com/yp9zd6qz?key=0c6829bd2ceaaaffbd141c30692ae919',
+    'https://www.revenuecpmgate.com/ymb9n1byd3?key=76a986bb79f6d03bdd0b3a59f6ee082f',
+    'https://www.revenuecpmgate.com/skvc0ctcu3?key=7f68fcb88a7a8b33cc59b8e6f5c0ee60',
+    'https://www.revenuecpmgate.com/u8pbrhux9s?key=07ac1efa949d843528665052b9c4f678',
+    'https://www.revenuecpmgate.com/xx14xgep7?key=4a1ccf40703e422beca8347d72619e93',
+    'https://www.revenuecpmgate.com/h8656brnx?key=18eaaff95cf031b226a93622a765284d',
+    'https://www.revenuecpmgate.com/dpyk9ees1?key=99f85906cc6ef409cc917831e2b283b2'
+  ];
+
+  // ✅ Show ads one by one
+  // Start after 5 seconds, each ad visible for 15 seconds
+  var startDelay = 5000;   // first ad after 5 seconds
+  var showDuration = 15000; // 15 seconds each
+
+  adLinks.forEach(function(link, index) {
+    setTimeout(function() {
+      openModalWithLink(link);
+      setTimeout(closeModal, showDuration); // close after 15s
+    }, startDelay + index * showDuration);
+  });
+</script>
+
+<!-- ✅ Modal HTML -->
+<div class="modal" id="myModal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9999;">
+  <div class="modal-content" style="position: relative; background: #fff; margin: 5% auto; padding: 10px; border-radius: 12px; width: 80%; max-width: 700px; box-shadow: 0 0 20px rgba(0,0,0,0.3);">
+    <span onclick="closeModal()" style="cursor: pointer; float: right; font-size: 20px; font-weight: bold;">×</span>
+    <iframe id="modalIframe" style="border: none; height: 400px; width: 100%; border-radius: 8px;"></iframe>
+  </div>
+</div>
+
+
 </body>
 </html>
