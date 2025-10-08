@@ -319,47 +319,7 @@
 
 
 
-<script>
-  function openModalWithLink(link) {
-    document.getElementById('modalIframe').src = link;
-    document.getElementById('myModal').style.display = 'block';
-  }
 
-  // Close Modal
-  function closeModal() {
-    document.getElementById('myModal').style.display = 'none';
-  }
-
-  var adLinks = [
-    'https://lnk.ink/Ads375',
-    'https://www.revenuecpmgate.com/ufw6ve5hc',
-    'https://www.revenuecpmgate.com/whp0g0pz',
-    'https://www.revenuecpmgate.com/yp9zd6qz',
-    'https://www.revenuecpmgate.com/ymb9n1byd3',
-    'https://www.revenuecpmgate.com/skvc0ctcu3',
-    'https://www.revenuecpmgate.com/u8pbrhux9s',
-    'https://www.revenuecpmgate.com/xx14xgep7',
-    'https://www.revenuecpmgate.com/h8656brn',
-    'https://www.revenuecpmgate.com/dpyk9ees'
-  ];
-
-  var startDelay = 5000;   // first ad after 5 seconds
-  var showDuration = 15000; // 15 seconds each
-
-  adLinks.forEach(function(link, index) {
-    setTimeout(function() {
-      openModalWithLink(link);
-      setTimeout(closeModal, showDuration); // close after 15s
-    }, startDelay + index * showDuration);
-  });
-</script>
-
-<div class="modal" id="myModal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9999;">
-  <div class="modal-content" style="position: relative; background: #fff; margin: 5% auto; padding: 10px; border-radius: 12px; width: 80%; max-width: 700px; box-shadow: 0 0 20px rgba(0,0,0,0.3);">
-    <span onclick="closeModal()" style="cursor: pointer; float: right; font-size: 20px; font-weight: bold;">×</span>
-    <iframe id="modalIframe" style="border: none; height: 400px; width: 100%; border-radius: 8px;"></iframe>
-  </div>
-</div>
 
 </body>
 </html>
